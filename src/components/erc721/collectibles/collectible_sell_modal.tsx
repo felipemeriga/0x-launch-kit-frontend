@@ -467,11 +467,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const CollectibleSellModal = withTheme(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    )(CollectibleSellModalContainer),
-);
+const CollectibleSellModal = withTheme(connect(mapStateToProps, mapDispatchToProps)(CollectibleSellModalContainer));
 
 export { CollectibleSellModal };

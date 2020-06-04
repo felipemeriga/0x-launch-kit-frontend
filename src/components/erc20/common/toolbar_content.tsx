@@ -112,11 +112,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const ToolbarContentContainer = withTheme(
-    connect(
-        null,
-        mapDispatchToProps,
-    )(ToolbarContent),
-);
+const ToolbarContentContainer = withTheme(connect(null, mapDispatchToProps)(ToolbarContent));
 
 export { ToolbarContent, ToolbarContentContainer };

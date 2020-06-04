@@ -49,9 +49,8 @@ export const getSelectedCollectible = (state: StoreState) => state.collectibles.
 export const getCurrentRoutePath = (state: StoreState) => state.router.location.pathname;
 export const getRouterLocationSearch = (state: StoreState) => state.router.location.search;
 
-export const getCurrentMarketPlace = createSelector(
-    getCurrentRoutePath,
-    (currentRoute: string) => (currentRoute.includes(ERC20_APP_BASE_PATH) ? MARKETPLACES.ERC20 : MARKETPLACES.ERC721),
+export const getCurrentMarketPlace = createSelector(getCurrentRoutePath, (currentRoute: string) =>
+    currentRoute.includes(ERC20_APP_BASE_PATH) ? MARKETPLACES.ERC20 : MARKETPLACES.ERC721,
 );
 
 const searchToken = ({ tokenBalances, tokenToFind, wethTokenBalance }: SearchTokenBalanceObject) => {
@@ -87,83 +86,62 @@ export const getQuoteTokenBalance = createSelector(
         searchToken({ tokenBalances, wethTokenBalance, tokenToFind: quoteToken }),
 );
 
-export const getOpenOrders = createSelector(
-    getOrders,
-    getWeb3State,
-    (orders, web3State) => {
-        switch (web3State) {
-            case Web3State.NotInstalled:
-            case Web3State.Error:
-            case Web3State.Locked: {
-                return orders;
+export const getOpenOrders = createSelector(getOrders, getWeb3State, (orders, web3State) => {
+    switch (web3State) {
+        case Web3State.NotInstalled:
+        case Web3State.Error:
+        case Web3State.Locked: {
+            return orders;
+        }
+        default: {
+            return orders.filter(order => order.status === OrderStatus.Fillable);
+        }
+    }
+});
+
+export const getOpenSellOrders = createSelector(getOpenOrders, orders => {
+    return orders.filter(order => order.side === OrderSide.Sell).sort((o1, o2) => o2.price.comparedTo(o1.price));
+});
+
+export const getOpenBuyOrders = createSelector(getOpenOrders, orders => {
+    return orders.filter(order => order.side === OrderSide.Buy).sort((o1, o2) => o2.price.comparedTo(o1.price));
+});
+
+export const getMySizeOrders = createSelector(getUserOrders, userOrders => {
+    return userOrders
+        .filter(userOrder => userOrder.status === OrderStatus.Fillable)
+        .map(order => {
+            let newSize = order.size;
+            if (order.filled) {
+                newSize = order.size.minus(order.filled);
             }
-            default: {
-                return orders.filter(order => order.status === OrderStatus.Fillable);
-            }
-        }
-    },
-);
+            return {
+                size: newSize,
+                side: order.side,
+                price: order.price,
+            };
+        });
+});
 
-export const getOpenSellOrders = createSelector(
-    getOpenOrders,
-    orders => {
-        return orders.filter(order => order.side === OrderSide.Sell).sort((o1, o2) => o2.price.comparedTo(o1.price));
-    },
-);
+export const getSpread = createSelector(getOpenBuyOrders, getOpenSellOrders, (buyOrders, sellOrders) => {
+    if (!buyOrders.length || !sellOrders.length) {
+        return ZERO;
+    }
 
-export const getOpenBuyOrders = createSelector(
-    getOpenOrders,
-    orders => {
-        return orders.filter(order => order.side === OrderSide.Buy).sort((o1, o2) => o2.price.comparedTo(o1.price));
-    },
-);
+    const lowestPriceSell = sellOrders[sellOrders.length - 1].price;
+    const highestPriceBuy = buyOrders[0].price;
 
-export const getMySizeOrders = createSelector(
-    getUserOrders,
-    userOrders => {
-        return userOrders
-            .filter(userOrder => userOrder.status === OrderStatus.Fillable)
-            .map(order => {
-                let newSize = order.size;
-                if (order.filled) {
-                    newSize = order.size.minus(order.filled);
-                }
-                return {
-                    size: newSize,
-                    side: order.side,
-                    price: order.price,
-                };
-            });
-    },
-);
+    return lowestPriceSell.minus(highestPriceBuy);
+});
 
-export const getSpread = createSelector(
-    getOpenBuyOrders,
-    getOpenSellOrders,
-    (buyOrders, sellOrders) => {
-        if (!buyOrders.length || !sellOrders.length) {
-            return ZERO;
-        }
+export const getSpreadInPercentage = createSelector(getSpread, getOpenSellOrders, (absSpread, sellOrders) => {
+    if (!sellOrders.length) {
+        return ZERO;
+    }
 
-        const lowestPriceSell = sellOrders[sellOrders.length - 1].price;
-        const highestPriceBuy = buyOrders[0].price;
-
-        return lowestPriceSell.minus(highestPriceBuy);
-    },
-);
-
-export const getSpreadInPercentage = createSelector(
-    getSpread,
-    getOpenSellOrders,
-    (absSpread, sellOrders) => {
-        if (!sellOrders.length) {
-            return ZERO;
-        }
-
-        const lowestPriceSell = sellOrders[sellOrders.length - 1].price;
-        return absSpread.dividedBy(lowestPriceSell).multipliedBy(100);
-    },
-);
+    const lowestPriceSell = sellOrders[sellOrders.length - 1].price;
+    return absSpread.dividedBy(lowestPriceSell).multipliedBy(100);
+});
 
 export const getOrderBook = createSelector(
     getOpenSellOrders,
@@ -179,57 +157,50 @@ export const getOrderBook = createSelector(
     },
 );
 
-export const getTokens = createSelector(
-    getTokenBalances,
-    (tokenBalances): Token[] => {
-        return tokenBalances.map((tokenBalance, index) => {
-            const { token } = tokenBalance;
-            return token;
-        });
-    },
-);
+export const getTokens = createSelector(getTokenBalances, (tokenBalances): Token[] => {
+    return tokenBalances.map((tokenBalance, index) => {
+        const { token } = tokenBalance;
+        return token;
+    });
+});
 
-export const getUserCollectibles = createSelector(
-    getEthAccount,
-    getAllCollectibles,
-    (ethAccount, allCollectibles): { [key: string]: Collectible } => {
-        const userCollectibles: { [key: string]: Collectible } = {};
-        Object.keys(allCollectibles).forEach(tokenId => {
-            if (allCollectibles[tokenId].currentOwner.toLowerCase() === ethAccount.toLowerCase()) {
-                userCollectibles[tokenId] = allCollectibles[tokenId];
-            }
-        });
-        return userCollectibles;
-    },
-);
+export const getUserCollectibles = createSelector(getEthAccount, getAllCollectibles, (ethAccount, allCollectibles): {
+    [key: string]: Collectible;
+} => {
+    const userCollectibles: { [key: string]: Collectible } = {};
+    Object.keys(allCollectibles).forEach(tokenId => {
+        if (allCollectibles[tokenId].currentOwner.toLowerCase() === ethAccount.toLowerCase()) {
+            userCollectibles[tokenId] = allCollectibles[tokenId];
+        }
+    });
+    return userCollectibles;
+});
 
-export const getUserCollectiblesAvailableToSell = createSelector(
-    getUserCollectibles,
-    (userCollectibles): { [key: string]: Collectible } => {
-        const userCollectiblesAvailableToSell: { [key: string]: Collectible } = {};
-        Object.keys(userCollectibles).forEach(tokenId => {
-            const collectibleIterator = userCollectibles[tokenId];
-            if (collectibleIterator.order === null) {
-                userCollectiblesAvailableToSell[tokenId] = collectibleIterator;
-            }
-        });
-        return userCollectiblesAvailableToSell;
-    },
-);
+export const getUserCollectiblesAvailableToSell = createSelector(getUserCollectibles, (userCollectibles): {
+    [key: string]: Collectible;
+} => {
+    const userCollectiblesAvailableToSell: { [key: string]: Collectible } = {};
+    Object.keys(userCollectibles).forEach(tokenId => {
+        const collectibleIterator = userCollectibles[tokenId];
+        if (collectibleIterator.order === null) {
+            userCollectiblesAvailableToSell[tokenId] = collectibleIterator;
+        }
+    });
+    return userCollectiblesAvailableToSell;
+});
 
-export const getUserCollectiblesOnSell = createSelector(
-    getUserCollectibles,
-    (userCollectibles): { [key: string]: Collectible } => {
-        const userCollectiblesOnSell: { [key: string]: Collectible } = {};
-        Object.keys(userCollectibles).forEach(tokenId => {
-            const collectibleIterator = userCollectibles[tokenId];
-            if (collectibleIterator.order) {
-                userCollectiblesOnSell[tokenId] = collectibleIterator;
-            }
-        });
-        return userCollectiblesOnSell;
-    },
-);
+export const getUserCollectiblesOnSell = createSelector(getUserCollectibles, (userCollectibles): {
+    [key: string]: Collectible;
+} => {
+    const userCollectiblesOnSell: { [key: string]: Collectible } = {};
+    Object.keys(userCollectibles).forEach(tokenId => {
+        const collectibleIterator = userCollectibles[tokenId];
+        if (collectibleIterator.order) {
+            userCollectiblesOnSell[tokenId] = collectibleIterator;
+        }
+    });
+    return userCollectiblesOnSell;
+});
 
 export const getOtherUsersCollectibles = createSelector(
     getEthAccount,

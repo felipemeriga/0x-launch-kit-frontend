@@ -348,9 +348,6 @@ const mapDispatchToProps = (dispatch: any) => {
     };
 };
 
-const WalletBalanceContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(WalletBalance);
+const WalletBalanceContainer = connect(mapStateToProps, mapDispatchToProps)(WalletBalance);
 
 export { WalletBalance, WalletBalanceContainer };
