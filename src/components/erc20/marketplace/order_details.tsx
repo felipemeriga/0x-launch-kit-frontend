@@ -241,9 +241,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const OrderDetailsContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(OrderDetails);
+const OrderDetailsContainer = connect(mapStateToProps, mapDispatchToProps)(OrderDetails);
 
 export { CostValue, OrderDetails, OrderDetailsContainer, Value };

@@ -37,7 +37,10 @@ export const getAllOrdersAsUIOrders = async (baseToken: Token, quoteToken: Token
     try {
         const contractWrappers = await getContractWrappers();
         const [ordersInfo] = await contractWrappers.devUtils
-            .getOrderRelevantStates(orders, orders.map(o => o.signature))
+            .getOrderRelevantStates(
+                orders,
+                orders.map(o => o.signature),
+            )
             .callAsync();
         return ordersToUIOrders(orders, baseToken, ordersInfo);
     } catch (err) {
@@ -67,7 +70,10 @@ export const getUserOrdersAsUIOrders = async (baseToken: Token, quoteToken: Toke
     try {
         const contractWrappers = await getContractWrappers();
         const [ordersInfo] = await contractWrappers.devUtils
-            .getOrderRelevantStates(myOrders, myOrders.map(o => o.signature))
+            .getOrderRelevantStates(
+                myOrders,
+                myOrders.map(o => o.signature),
+            )
             .callAsync();
         return ordersToUIOrders(myOrders, baseToken, ordersInfo);
     } catch (err) {

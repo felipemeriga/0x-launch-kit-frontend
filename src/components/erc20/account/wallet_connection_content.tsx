@@ -63,9 +63,6 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const WalletConnectionContentContainer = connect(
-    mapStateToProps,
-    {},
-)(WalletConnectionContent);
+const WalletConnectionContentContainer = connect(mapStateToProps, {})(WalletConnectionContent);
 
 export { WalletConnectionContent, WalletConnectionContentContainer };
