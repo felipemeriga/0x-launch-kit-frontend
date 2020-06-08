@@ -1,4 +1,7 @@
 import { Web3Wrapper } from '@0x/web3-wrapper';
+import Torus from "@toruslabs/torus-embed";
+import Web3 from "web3";
+import {NETWORK_ID, CHAIN_ID, NETWORK_NAME } from "../common/constants";
 
 import { sleep } from '../util/sleep';
 
@@ -40,8 +43,20 @@ export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
         web3Wrapper = new Web3Wrapper(web3.currentProvider);
         return web3Wrapper;
     } else {
-        //  The user does not have metamask installed
-        return null;
+        const torus = new Torus({
+            buttonPosition: "bottom-right"
+        });
+        await torus.init({
+            network: {
+                host: NETWORK_ID === 3 ? "ropsten" : "mainnet",
+                chainId: CHAIN_ID,
+                networkName: NETWORK_NAME
+            }
+        });
+        await torus.login({}); 
+        const web3 = new Web3(torus.provider as any);
+        web3Wrapper = new Web3Wrapper(web3.currentProvider as any);
+        return web3Wrapper;
     }
 };
 
