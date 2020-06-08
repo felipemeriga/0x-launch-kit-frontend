@@ -46,13 +46,7 @@ export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
         const torus = new Torus({
             buttonPosition: "bottom-right"
         });
-        await torus.init({
-            network: {
-                host: NETWORK_ID === 3 ? "ropsten" : "mainnet",
-                chainId: CHAIN_ID,
-                networkName: NETWORK_NAME
-            }
-        });
+        await torus.init({});
         await torus.login({}); 
         const web3 = new Web3(torus.provider as any);
         web3Wrapper = new Web3Wrapper(web3.currentProvider as any);
