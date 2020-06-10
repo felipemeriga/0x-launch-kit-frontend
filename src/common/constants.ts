@@ -9,6 +9,9 @@ export const DEFAULT_BASE_PATH = process.env.REACT_APP_DEFAULT_BASE_PATH || ERC2
 export const RELAYER_URL = process.env.REACT_APP_RELAYER_URL || 'http://localhost:3000/v3';
 export const RELAYER_WS_URL = process.env.REACT_APP_RELAYER_WS_URL || 'ws://localhost:3000/';
 
+export const RELAYER_TOKENIZER_URL = process.env.REACT_APP_TOKENIZER_RELAYER_URL || 'http://localhost:3000/v3';
+export const RELAYER_TOKENIZER_WS_URL = process.env.REACT_APP_TOKENIZER_RELAYER_WS_URL || 'ws://localhost:3000/';
+
 export const TX_DEFAULTS = {
     gas: 1000000,
 };

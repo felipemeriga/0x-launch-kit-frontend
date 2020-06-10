@@ -204,6 +204,7 @@ export const startBuySellMarketSteps: ThunkCreator = (
         const baseTokenBalance = selectors.getBaseTokenBalance(state);
 
         const orders = side === OrderSide.Buy ? selectors.getOpenSellOrders(state) : selectors.getOpenBuyOrders(state);
+
         // tslint:disable-next-line:no-unused-variable
         const [_ordersToFill, filledAmounts, canBeFilled] = buildMarketOrders(
             {
@@ -298,6 +299,7 @@ export const createSignedOrder: ThunkCreator = (amount: BigNumber, price: BigNum
                     exchangeAddress: contractWrappers.exchange.address,
                 },
                 side,
+                false,
             );
 
             const provider = new MetamaskSubprovider(web3Wrapper.getProvider());

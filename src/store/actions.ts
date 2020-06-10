@@ -19,6 +19,7 @@ export * from './collectibles/actions';
 export const updateStore = () => {
     return async (dispatch: any, getState: any) => {
         const state = getState();
+
         const web3Wrapper = await getWeb3Wrapper();
         const [ethAccount] = await web3Wrapper.getAvailableAddressesAsync();
         dispatch(updateTokenBalances());

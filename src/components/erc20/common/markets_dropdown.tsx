@@ -382,6 +382,7 @@ class MarketsDropdown extends React.Component<Props, State> {
     };
 
     private readonly _setSelectedMarket: any = (currencyPair: CurrencyPair) => {
+
         this.props.changeMarket(currencyPair);
         this.props.goToHome();
         if (this._dropdown.current) {

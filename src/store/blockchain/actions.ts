@@ -477,6 +477,7 @@ export const createSignedCollectibleOrder: ThunkCreator = (
                         wethAddress,
                     },
                     side,
+                    false,
                 );
             }
 

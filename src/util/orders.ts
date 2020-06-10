@@ -36,7 +36,7 @@ interface BuildMarketOrderParams {
     orders: UIOrder[];
 }
 
-export const buildSellCollectibleOrder = async (params: BuildSellCollectibleOrderParams, side: OrderSide) => {
+export const buildSellCollectibleOrder = async (params: BuildSellCollectibleOrderParams, side: OrderSide, tokenizerFlag: boolean) => {
     const {
         account,
         collectibleId,
@@ -62,10 +62,10 @@ export const buildSellCollectibleOrder = async (params: BuildSellCollectibleOrde
         expirationTimeSeconds: expirationDate,
     };
 
-    return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest);
+    return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest, tokenizerFlag);
 };
 
-export const buildLimitOrder = async (params: BuildLimitOrderParams, side: OrderSide): Promise<Order> => {
+export const buildLimitOrder = async (params: BuildLimitOrderParams, side: OrderSide, tokenizerFlag: boolean): Promise<Order> => {
     const { account, baseTokenAddress, exchangeAddress, amount, price, quoteTokenAddress } = params;
 
     const baseTokenAssetData = assetDataUtils.encodeERC20AssetData(baseTokenAddress);
@@ -95,12 +95,12 @@ export const buildLimitOrder = async (params: BuildLimitOrderParams, side: Order
         expirationTimeSeconds: getExpirationTimeOrdersFromConfig(),
     };
 
-    return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest);
+    return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest, tokenizerFlag);
 };
 
-export const getOrderWithTakerAndFeeConfigFromRelayer = async (orderConfigRequest: OrderConfigRequest) => {
+export const getOrderWithTakerAndFeeConfigFromRelayer = async (orderConfigRequest: OrderConfigRequest, tokenizerFlag: boolean) => {
     const client = getRelayer();
-    const orderResult = await client.getOrderConfigAsync(orderConfigRequest);
+    const orderResult = await client.getOrderConfigAsync(orderConfigRequest, tokenizerFlag);
     return {
         ...orderConfigRequest,
         ...orderResult,
