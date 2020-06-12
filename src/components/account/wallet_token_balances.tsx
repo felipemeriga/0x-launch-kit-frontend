@@ -224,6 +224,9 @@ const mapDispatchToProps = {
     onStartToggleTokenLockSteps: startToggleTokenLockSteps,
 };
 
-const WalletTokenBalancesContainer = connect(mapStateToProps, mapDispatchToProps)(WalletTokenBalances);
+const WalletTokenBalancesContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(WalletTokenBalances);
 
 export { WalletTokenBalances, WalletTokenBalancesContainer };

@@ -93,6 +93,9 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const CollectibleCardContainer = connect(mapStateToProps, {})(CollectibleCard);
+const CollectibleCardContainer = connect(
+    mapStateToProps,
+    {},
+)(CollectibleCard);
 
 export { CollectibleCard, CollectibleCardContainer };

@@ -97,6 +97,9 @@ const mapDispatchToProps = (dispatch: any) => {
     };
 };
 
-const CheckMetamaskStateModalContainer = connect(mapStateToProps, mapDispatchToProps)(CheckMetamaskStateModal);
+const CheckMetamaskStateModalContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(CheckMetamaskStateModal);
 
 export { CheckMetamaskStateModal, CheckMetamaskStateModalContainer };

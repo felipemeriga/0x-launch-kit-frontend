@@ -203,6 +203,9 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const CollectibleBuySellContainer = connect(mapStateToProps, mapDispatchToProps)(CollectibleBuySell);
+const CollectibleBuySellContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(CollectibleBuySell);
 
 export { CollectibleBuySell, CollectibleBuySellContainer };

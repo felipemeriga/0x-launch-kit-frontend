@@ -167,6 +167,9 @@ const mapDispatchToProps = (dispatch: any) => {
     };
 };
 
-const BuySellCollectibleStepContainer = connect(mapStateToProps, mapDispatchToProps)(BuySellCollectibleStep);
+const BuySellCollectibleStepContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(BuySellCollectibleStep);
 
 export { BuySellCollectibleStep, BuySellCollectibleStepContainer };

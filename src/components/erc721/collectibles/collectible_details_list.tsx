@@ -48,4 +48,7 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-export const CollectibleOnListContainer = connect(null, mapDispatchToProps)(CollectibleOnList);
+export const CollectibleOnListContainer = connect(
+    null,
+    mapDispatchToProps,
+)(CollectibleOnList);

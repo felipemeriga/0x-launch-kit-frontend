@@ -147,6 +147,11 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const CollectibleListModal = withTheme(connect(mapStateToProps, mapDispatchToProps)(CollectibleListModalContainer));
+const CollectibleListModal = withTheme(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(CollectibleListModalContainer),
+);
 
 export { CollectibleListModal };
