@@ -23,7 +23,6 @@ import { Button } from '../../common/button';
 import { Card } from '../../common/card';
 import { ErrorCard, ErrorIcons, FontSize } from '../../common/error_card';
 import { IconType, Tooltip } from '../../common/tooltip';
-import { isMetamaskInstalled } from "../../../services/web3_wrapper";
 
 const LabelWrapper = styled.div`
     align-items: center;
@@ -170,7 +169,7 @@ const simplifiedTextBoxSmall = () => {
 };
 
 const getWalletName = () => {
-    return 'Torus';
+    return 'MetaMask';
 };
 
 const getWallet = (web3State: Web3State) => {

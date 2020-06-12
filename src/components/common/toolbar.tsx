@@ -93,11 +93,11 @@ const Toolbar = (props: Props) => {
                     <ErrorCard
                         fontSize={FontSize.Large}
                         text={errorsWallet.mmNotInstalled}
-                        icon={ErrorIcons.Torus}
+                        icon={ErrorIcons.Metamask}
                     />
                 );
             case Web3State.Loading:
-                return <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmLoading} icon={ErrorIcons.Torus} />;
+                return <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmLoading} icon={ErrorIcons.Metamask} />;
             case Web3State.Error:
                 return (
                     <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmWrongNetwork} icon={ErrorIcons.Warning} />

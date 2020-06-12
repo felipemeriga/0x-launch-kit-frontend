@@ -32,13 +32,12 @@ class App extends React.Component<Props> {
     private _updatePriceEtherInterval: number | undefined;
 
     public componentDidMount = () => {
-        // const wasWalletConnected = localStorage.getWalletConnected();
-        // if (wasWalletConnected) {
-        this.props.onConnectWallet();
-        // }
-        // else {
-            // this.props.onInitMetamaskState();
-        // }
+        const wasWalletConnected = localStorage.getWalletConnected();
+        if (wasWalletConnected) {
+            this.props.onConnectWallet();
+        } else {
+            this.props.onInitMetamaskState();
+        }
     };
 
     public componentDidUpdate = async (prevProps: Readonly<Props>, prevState: Readonly<Props>, snapshot?: any) => {

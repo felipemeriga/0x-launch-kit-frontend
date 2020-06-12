@@ -11,7 +11,6 @@
         "@0x/utils": "^5.0.0",
         "@0x/web3-wrapper": "^7.0.0",
         "@toruslabs/torus-embed": "^1.4.4",
-        "@types/web3": "^1.2.2",
         "async-retry": "^1.2.3",
         "async-sema": "^3.0.0",
         "connected-react-router": "^6.2.2",
