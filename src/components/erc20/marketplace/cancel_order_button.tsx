@@ -72,6 +72,9 @@ const mapDispatchToProps = {
     onCancelOrder: cancelOrder,
 };
 
-const CancelOrderButtonContainer = connect(null, mapDispatchToProps)(CancelOrderButton);
+const CancelOrderButtonContainer = connect(
+    null,
+    mapDispatchToProps,
+)(CancelOrderButton);
 
 export { CancelOrderButton, CancelOrderButtonContainer };

@@ -117,13 +117,16 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const BuySellTokenStepContainer = connect(mapStateToProps, (dispatch: any) => {
-    return {
-        onSubmitMarketOrder: (amount: BigNumber, side: OrderSide) => dispatch(submitMarketOrder(amount, side)),
-        notifyBuySellMarket: (id: string, amount: BigNumber, token: Token, side: OrderSide, tx: Promise<any>) =>
-            dispatch(addMarketBuySellNotification(id, amount, token, side, tx)),
-        refreshOrders: () => dispatch(getOrderbookAndUserOrders()),
-    };
-})(BuySellTokenStep);
+const BuySellTokenStepContainer = connect(
+    mapStateToProps,
+    (dispatch: any) => {
+        return {
+            onSubmitMarketOrder: (amount: BigNumber, side: OrderSide) => dispatch(submitMarketOrder(amount, side)),
+            notifyBuySellMarket: (id: string, amount: BigNumber, token: Token, side: OrderSide, tx: Promise<any>) =>
+                dispatch(addMarketBuySellNotification(id, amount, token, side, tx)),
+            refreshOrders: () => dispatch(getOrderbookAndUserOrders()),
+        };
+    },
+)(BuySellTokenStep);
 
 export { BuySellTokenStep, BuySellTokenStepContainer };

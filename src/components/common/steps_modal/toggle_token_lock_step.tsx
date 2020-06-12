@@ -94,12 +94,15 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const ToggleTokenLockStepContainer = connect(mapStateToProps, (dispatch: any) => {
-    return {
-        onLockToken: (token: Token) => dispatch(lockToken(token)),
-        onUnlockToken: (token: Token) => dispatch(unlockToken(token)),
-        advanceStep: () => dispatch(stepsModalAdvanceStep()),
-    };
-})(ToggleTokenLockStep);
+const ToggleTokenLockStepContainer = connect(
+    mapStateToProps,
+    (dispatch: any) => {
+        return {
+            onLockToken: (token: Token) => dispatch(lockToken(token)),
+            onUnlockToken: (token: Token) => dispatch(unlockToken(token)),
+            advanceStep: () => dispatch(stepsModalAdvanceStep()),
+        };
+    },
+)(ToggleTokenLockStep);
 
 export { ToggleTokenLockStep, ToggleTokenLockStepContainer };
