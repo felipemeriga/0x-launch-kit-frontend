@@ -324,7 +324,10 @@ class BuySell extends React.Component<Props, State> {
         const makerAmount = this.state.makerAmount || ZERO;
         const price = this.state.price || ZERO;
 
+        // This part of the code, will basically call the HTTPS endpoints on the relayers, passing an OrderConfig
+        // object, and the relayer will return the market fees for the current token
         const orderFeeData = await this.props.onFetchTakerAndMakerFee(makerAmount, price, this.state.tab);
+
         if (this.state.orderType === OrderType.Limit) {
             await this.props.onSubmitLimitOrder(makerAmount, price, orderSide, orderFeeData);
         } else {

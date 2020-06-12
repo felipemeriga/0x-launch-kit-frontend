@@ -136,9 +136,18 @@ export const cancelOrder: ThunkCreator = (order: UIOrder) => {
 };
 
 export const submitCollectibleOrder: ThunkCreator = (signedOrder: SignedOrder) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
-            const submitResult = await getRelayer().submitOrderAsync(signedOrder);
+            const state = getState();
+            const baseToken = getBaseToken(state) as Token;
+
+            let tokenizerFlag = false;
+
+            if (baseToken.name === 'Tokenizer') {
+                tokenizerFlag = true;
+            }
+
+            const submitResult = await getRelayer().submitOrderAsync(signedOrder, false);
             // tslint:disable-next-line:no-floating-promises
             dispatch(getAllCollectibles());
             // TODO: Dispatch notification
@@ -153,8 +162,14 @@ export const submitLimitOrder: ThunkCreator = (signedOrder: SignedOrder, amount:
     return async (dispatch, getState) => {
         const state = getState();
         const baseToken = getBaseToken(state) as Token;
+
+        let tokenizerFlag = false;
+
+        if (baseToken.name === 'Tokenizer') {
+            tokenizerFlag = true;
+        }
         try {
-            const submitResult = await getRelayer().submitOrderAsync(signedOrder);
+            const submitResult = await getRelayer().submitOrderAsync(signedOrder, tokenizerFlag);
 
             // tslint:disable-next-line:no-floating-promises
             dispatch(getOrderbookAndUserOrders());
@@ -321,6 +336,12 @@ export const fetchTakerAndMakerFee: ThunkCreator<Promise<OrderFeeData>> = (
         const quoteToken = getQuoteToken(state) as Token;
         const contractWrappers = await getContractWrappers();
 
+        let tokenizerFlag = false;
+
+        if (baseToken.name === 'Tokenizer') {
+            tokenizerFlag = true;
+        }
+
         const order = await buildLimitOrder(
             {
                 account: ethAccount,
@@ -331,6 +352,7 @@ export const fetchTakerAndMakerFee: ThunkCreator<Promise<OrderFeeData>> = (
                 exchangeAddress: contractWrappers.exchange.address,
             },
             side,
+            tokenizerFlag,
         );
 
         const { makerFee, takerFee, makerFeeAssetData, takerFeeAssetData } = order;
