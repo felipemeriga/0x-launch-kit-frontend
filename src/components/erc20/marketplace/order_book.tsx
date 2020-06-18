@@ -221,10 +221,7 @@ const mapOrderToRowDispatchToProps = (dispatch: any): OrderToRowDispatchProps =>
     };
 };
 
-const OrderToRowContainer = connect(
-    null,
-    mapOrderToRowDispatchToProps,
-)(OrderToRow);
+const OrderToRowContainer = connect(null, mapOrderToRowDispatchToProps)(OrderToRow);
 
 class OrderBookTable extends React.Component<Props> {
     private readonly _spreadRowScrollable: React.RefObject<HTMLDivElement>;

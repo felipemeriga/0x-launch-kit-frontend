@@ -382,7 +382,6 @@ class MarketsDropdown extends React.Component<Props, State> {
     };
 
     private readonly _setSelectedMarket: any = (currencyPair: CurrencyPair) => {
-
         this.props.changeMarket(currencyPair);
         this.props.goToHome();
         if (this._dropdown.current) {
@@ -414,9 +413,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     };
 };
 
-const MarketsDropdownContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(MarketsDropdown);
+const MarketsDropdownContainer = connect(mapStateToProps, mapDispatchToProps)(MarketsDropdown);
 
 export { MarketsDropdown, MarketsDropdownContainer };

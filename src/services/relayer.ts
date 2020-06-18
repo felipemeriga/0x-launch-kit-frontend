@@ -4,7 +4,13 @@ import { Orderbook } from '@0x/orderbook';
 import { BigNumber } from '@0x/utils';
 import { RateLimit } from 'async-sema';
 
-import { RELAYER_RPS, RELAYER_TOKENIZER_URL, RELAYER_TOKENIZER_WS_URL, RELAYER_URL, RELAYER_WS_URL} from '../common/constants';
+import {
+    RELAYER_RPS,
+    RELAYER_TOKENIZER_URL,
+    RELAYER_TOKENIZER_WS_URL,
+    RELAYER_URL,
+    RELAYER_WS_URL,
+} from '../common/constants';
 import { tokenAmountInUnitsToBigNumber } from '../util/tokens';
 import { Token } from '../util/types';
 
@@ -29,7 +35,11 @@ export class Relayer {
         this._rateLimit = RateLimit(options.rps); // requests per second
     }
 
-    public async getAllOrdersAsync(baseTokenAssetData: string, quoteTokenAssetData: string, tokenizerFlag: boolean): Promise<SignedOrder[]> {
+    public async getAllOrdersAsync(
+        baseTokenAssetData: string,
+        quoteTokenAssetData: string,
+        tokenizerFlag: boolean,
+    ): Promise<SignedOrder[]> {
         const [sellOrders, buyOrders] = await Promise.all([
             this._getOrdersAsync(tokenizerFlag, baseTokenAssetData, quoteTokenAssetData),
             this._getOrdersAsync(tokenizerFlag, quoteTokenAssetData, baseTokenAssetData),
@@ -37,7 +47,10 @@ export class Relayer {
         return [...sellOrders, ...buyOrders];
     }
 
-    public async getOrderConfigAsync(orderConfig: OrderConfigRequest, tokenizerFlag: boolean): Promise<OrderConfigResponse> {
+    public async getOrderConfigAsync(
+        orderConfig: OrderConfigRequest,
+        tokenizerFlag: boolean,
+    ): Promise<OrderConfigResponse> {
         await this._rateLimit();
 
         if (tokenizerFlag) {
@@ -65,7 +78,6 @@ export class Relayer {
     // function to check whether the token is from Tokenizer, if it's from tokenizer it will get the prices from the
     // Tokenizer backend
     public async getCurrencyPairPriceAsync(baseToken: Token, quoteToken: Token): Promise<BigNumber | null> {
-
         let tokenizerFlag = false;
 
         if (baseToken.name === 'Tokenizer') {

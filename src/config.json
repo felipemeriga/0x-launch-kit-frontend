@@ -35,7 +35,7 @@
             "symbol": "xr",
             "name": "XRWeb",
             "primaryColor": "#333333",
-            "icon": "assets/icons/xr.png",
+            "icon": "assets/icons/xr.svg",
             "addresses": {
                 "1": "0x61ec1a25f763eef9823773c7bdb9d7c644fb3503",
                 "3": "0x61ec1a25f763eef9823773c7bdb9d7c644fb3503"
@@ -141,6 +141,18 @@
         {
             "base": "xr",
             "quote": "weth"
+        },
+        {
+            "base": "xr",
+            "quote": "dai"
+        },
+        {
+            "base": "xr",
+            "quote": "toz"
+        },
+        {
+            "base": "xr",
+            "quote": "zrx"
         },
         {
             "base": "zrx",

@@ -36,7 +36,11 @@ interface BuildMarketOrderParams {
     orders: UIOrder[];
 }
 
-export const buildSellCollectibleOrder = async (params: BuildSellCollectibleOrderParams, side: OrderSide, tokenizerFlag: boolean) => {
+export const buildSellCollectibleOrder = async (
+    params: BuildSellCollectibleOrderParams,
+    side: OrderSide,
+    tokenizerFlag: boolean,
+) => {
     const {
         account,
         collectibleId,
@@ -65,7 +69,11 @@ export const buildSellCollectibleOrder = async (params: BuildSellCollectibleOrde
     return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest, tokenizerFlag);
 };
 
-export const buildLimitOrder = async (params: BuildLimitOrderParams, side: OrderSide, tokenizerFlag: boolean): Promise<Order> => {
+export const buildLimitOrder = async (
+    params: BuildLimitOrderParams,
+    side: OrderSide,
+    tokenizerFlag: boolean,
+): Promise<Order> => {
     const { account, baseTokenAddress, exchangeAddress, amount, price, quoteTokenAddress } = params;
 
     const baseTokenAssetData = assetDataUtils.encodeERC20AssetData(baseTokenAddress);
@@ -98,7 +106,10 @@ export const buildLimitOrder = async (params: BuildLimitOrderParams, side: Order
     return orderHelper.getOrderWithTakerAndFeeConfigFromRelayer(orderConfigRequest, tokenizerFlag);
 };
 
-export const getOrderWithTakerAndFeeConfigFromRelayer = async (orderConfigRequest: OrderConfigRequest, tokenizerFlag: boolean) => {
+export const getOrderWithTakerAndFeeConfigFromRelayer = async (
+    orderConfigRequest: OrderConfigRequest,
+    tokenizerFlag: boolean,
+) => {
     const client = getRelayer();
     const orderResult = await client.getOrderConfigAsync(orderConfigRequest, tokenizerFlag);
     return {

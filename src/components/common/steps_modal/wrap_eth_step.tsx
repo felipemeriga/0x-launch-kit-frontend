@@ -162,20 +162,17 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const WrapEthStepContainer = connect(
-    mapStateToProps,
-    (dispatch: any) => {
-        return {
-            updateWeth: (newWethBalance: BigNumber) => dispatch(updateWethBalance(newWethBalance)),
-            updateTokenBalances: (txHash: string) => dispatch(updateTokenBalances(txHash)),
-            advanceStep: () => dispatch(stepsModalAdvanceStep()),
-            convertBalanceState: {
-                request: () => dispatch(convertBalanceStateAsync.request()),
-                success: () => dispatch(convertBalanceStateAsync.success()),
-                failure: () => dispatch(convertBalanceStateAsync.failure()),
-            },
-        };
-    },
-)(WrapEthStep);
+const WrapEthStepContainer = connect(mapStateToProps, (dispatch: any) => {
+    return {
+        updateWeth: (newWethBalance: BigNumber) => dispatch(updateWethBalance(newWethBalance)),
+        updateTokenBalances: (txHash: string) => dispatch(updateTokenBalances(txHash)),
+        advanceStep: () => dispatch(stepsModalAdvanceStep()),
+        convertBalanceState: {
+            request: () => dispatch(convertBalanceStateAsync.request()),
+            success: () => dispatch(convertBalanceStateAsync.success()),
+            failure: () => dispatch(convertBalanceStateAsync.failure()),
+        },
+    };
+})(WrapEthStep);
 
 export { WrapEthStep, WrapEthStepContainer };
