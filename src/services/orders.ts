@@ -18,12 +18,12 @@ const getAllOrders = async (baseToken: Token, quoteToken: Token, makerAddresses:
     const baseTokenAssetData = assetDataUtils.encodeERC20AssetData(baseToken.address);
     const quoteTokenAssetData = assetDataUtils.encodeERC20AssetData(quoteToken.address);
 
-    let tokenizerFlag = false;
+    let isTokenizer = false;
 
     if (baseToken.name === 'Tokenizer') {
-        tokenizerFlag = true;
+        isTokenizer = true;
     }
-    const orders = await relayer.getAllOrdersAsync(baseTokenAssetData, quoteTokenAssetData, tokenizerFlag);
+    const orders = await relayer.getAllOrdersAsync(baseTokenAssetData, quoteTokenAssetData, isTokenizer);
 
     // if makerAddresses is null or empty do not filter
     if (!makerAddresses || makerAddresses.length === 0) {
@@ -68,13 +68,13 @@ export const getUserOrders = (baseToken: Token, quoteToken: Token, ethAccount: s
     const relayer = getRelayer();
     const baseTokenAssetData = assetDataUtils.encodeERC20AssetData(baseToken.address);
     const quoteTokenAssetData = assetDataUtils.encodeERC20AssetData(quoteToken.address);
-    let tokenizerFlag = false;
+    let isTokenizer = false;
 
     if (baseToken.name === 'Tokenizer') {
-        tokenizerFlag = true;
+        isTokenizer = true;
     }
 
-    return relayer.getUserOrdersAsync(ethAccount, baseTokenAssetData, quoteTokenAssetData, tokenizerFlag);
+    return relayer.getUserOrdersAsync(ethAccount, baseTokenAssetData, quoteTokenAssetData, isTokenizer);
 };
 
 export const getUserOrdersAsUIOrders = async (baseToken: Token, quoteToken: Token, ethAccount: string) => {

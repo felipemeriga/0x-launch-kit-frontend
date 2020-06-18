@@ -138,14 +138,14 @@ export const cancelOrder: ThunkCreator = (order: UIOrder) => {
 export const submitCollectibleOrder: ThunkCreator = (signedOrder: SignedOrder) => {
     return async (dispatch, getState) => {
         try {
-            const state = getState();
-            const baseToken = getBaseToken(state) as Token;
+            // const state = getState();
+            // const baseToken = getBaseToken(state) as Token;
 
-            let tokenizerFlag = false;
+            // let tokenizerFlag = false;
 
-            if (baseToken.name === 'Tokenizer') {
-                tokenizerFlag = true;
-            }
+            // if (baseToken.name === 'Tokenizer') {
+            //     tokenizerFlag = true;
+            // }
 
             const submitResult = await getRelayer().submitOrderAsync(signedOrder, false);
             // tslint:disable-next-line:no-floating-promises
@@ -163,13 +163,13 @@ export const submitLimitOrder: ThunkCreator = (signedOrder: SignedOrder, amount:
         const state = getState();
         const baseToken = getBaseToken(state) as Token;
 
-        let tokenizerFlag = false;
+        let isTokenizer = false;
 
         if (baseToken.name === 'Tokenizer') {
-            tokenizerFlag = true;
+            isTokenizer = true;
         }
         try {
-            const submitResult = await getRelayer().submitOrderAsync(signedOrder, tokenizerFlag);
+            const submitResult = await getRelayer().submitOrderAsync(signedOrder, isTokenizer);
 
             // tslint:disable-next-line:no-floating-promises
             dispatch(getOrderbookAndUserOrders());
@@ -336,10 +336,10 @@ export const fetchTakerAndMakerFee: ThunkCreator<Promise<OrderFeeData>> = (
         const quoteToken = getQuoteToken(state) as Token;
         const contractWrappers = await getContractWrappers();
 
-        let tokenizerFlag = false;
+        let isTokenizer = false;
 
         if (baseToken.name === 'Tokenizer') {
-            tokenizerFlag = true;
+            isTokenizer = true;
         }
 
         const order = await buildLimitOrder(
@@ -352,7 +352,7 @@ export const fetchTakerAndMakerFee: ThunkCreator<Promise<OrderFeeData>> = (
                 exchangeAddress: contractWrappers.exchange.address,
             },
             side,
-            tokenizerFlag,
+            isTokenizer,
         );
 
         const { makerFee, takerFee, makerFeeAssetData, takerFeeAssetData } = order;

@@ -18,13 +18,13 @@ interface StateProps {
 
 type Props = StateProps & OwnProps;
 
-const connectToWallet = () => {
-    alert('connect to another wallet');
-};
+// const connectToWallet = () => {
+//     alert('connect to another wallet');
+// };
 
-const goToURL = () => {
-    alert('go to url');
-};
+// const goToURL = () => {
+//     alert('go to url');
+// };
 
 const DropdownItems = styled(CardBase)`
     box-shadow: ${props => props.theme.componentsTheme.boxShadow};

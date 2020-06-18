@@ -78,14 +78,14 @@ export class Relayer {
     // function to check whether the token is from Tokenizer, if it's from tokenizer it will get the prices from the
     // Tokenizer backend
     public async getCurrencyPairPriceAsync(baseToken: Token, quoteToken: Token): Promise<BigNumber | null> {
-        let tokenizerFlag = false;
+        let isTokenizer = false;
 
         if (baseToken.name === 'Tokenizer') {
-            tokenizerFlag = true;
+            isTokenizer = true;
         }
 
         const asks = await this._getOrdersAsync(
-            tokenizerFlag,
+            isTokenizer,
             assetDataUtils.encodeERC20AssetData(baseToken.address),
             assetDataUtils.encodeERC20AssetData(quoteToken.address),
         );
