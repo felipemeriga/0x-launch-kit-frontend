@@ -107,6 +107,7 @@ export class Relayer {
 
     public async submitOrderAsync(order: SignedOrder, tokenizerFlag: boolean): Promise<void> {
         await this._rateLimit();
+
         if (tokenizerFlag) {
             return this._tokenizerClient.submitOrderAsync(order);
         }
