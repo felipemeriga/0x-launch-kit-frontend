@@ -1,6 +1,7 @@
 {
     "general": {
-        "title": "Launch Kit"
+        "title": "Tokenizer - Exchange",
+        "icon": "assets/icons/toz.svg"
     },
     "tokens": [
         {
@@ -26,6 +27,18 @@
             "addresses": {
                 "1": "0x74383273cb0bc65f8f8738a2847d2e81b28d4e00",
                 "3": "0x74383273cb0bc65f8f8738a2847d2e81b28d4e00"
+            },
+            "decimals": 18,
+            "displayDecimals": 2
+        },
+        {
+            "symbol": "xr",
+            "name": "XRWeb",
+            "primaryColor": "#333333",
+            "icon": "assets/icons/xr.png",
+            "addresses": {
+                "1": "0x61ec1a25f763eef9823773c7bdb9d7c644fb3503",
+                "3": "0x61ec1a25f763eef9823773c7bdb9d7c644fb3503"
             },
             "decimals": 18,
             "displayDecimals": 2
@@ -123,6 +136,10 @@
         },
         {
             "base": "toz",
+            "quote": "weth"
+        },
+        {
+            "base": "xr",
             "quote": "weth"
         },
         {
