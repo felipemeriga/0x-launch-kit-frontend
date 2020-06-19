@@ -20,7 +20,7 @@ const getAllOrders = async (baseToken: Token, quoteToken: Token, makerAddresses:
 
     let isTokenizer = false;
 
-    if (baseToken.name === 'Tokenizer') {
+    if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
         isTokenizer = true;
     }
     const orders = await relayer.getAllOrdersAsync(baseTokenAssetData, quoteTokenAssetData, isTokenizer);
@@ -70,7 +70,7 @@ export const getUserOrders = (baseToken: Token, quoteToken: Token, ethAccount: s
     const quoteTokenAssetData = assetDataUtils.encodeERC20AssetData(quoteToken.address);
     let isTokenizer = false;
 
-    if (baseToken.name === 'Tokenizer') {
+    if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
         isTokenizer = true;
     }
 
