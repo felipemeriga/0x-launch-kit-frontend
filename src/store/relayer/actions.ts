@@ -138,16 +138,16 @@ export const cancelOrder: ThunkCreator = (order: UIOrder) => {
 export const submitCollectibleOrder: ThunkCreator = (signedOrder: SignedOrder) => {
     return async (dispatch, getState) => {
         try {
-            // const state = getState();
-            // const baseToken = getBaseToken(state) as Token;
+            const state = getState();
+            const baseToken = getBaseToken(state) as Token;
 
-            // let tokenizerFlag = false;
+            let tokenizerFlag = false;
 
-            // if (baseToken.name === 'Tokenizer') {
-            //     tokenizerFlag = true;
-            // }
+            if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
+                tokenizerFlag = true;
+            }
 
-            const submitResult = await getRelayer().submitOrderAsync(signedOrder, false);
+            const submitResult = await getRelayer().submitOrderAsync(signedOrder, tokenizerFlag);
             // tslint:disable-next-line:no-floating-promises
             dispatch(getAllCollectibles());
             // TODO: Dispatch notification
@@ -165,7 +165,7 @@ export const submitLimitOrder: ThunkCreator = (signedOrder: SignedOrder, amount:
 
         let isTokenizer = false;
 
-        if (baseToken.name === 'Tokenizer') {
+        if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
             isTokenizer = true;
         }
         try {
@@ -338,7 +338,7 @@ export const fetchTakerAndMakerFee: ThunkCreator<Promise<OrderFeeData>> = (
 
         let isTokenizer = false;
 
-        if (baseToken.name === 'Tokenizer') {
+        if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
             isTokenizer = true;
         }
 

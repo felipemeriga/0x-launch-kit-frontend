@@ -80,7 +80,7 @@ export class Relayer {
     public async getCurrencyPairPriceAsync(baseToken: Token, quoteToken: Token): Promise<BigNumber | null> {
         let isTokenizer = false;
 
-        if (baseToken.name === 'Tokenizer') {
+        if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
             isTokenizer = true;
         }
 

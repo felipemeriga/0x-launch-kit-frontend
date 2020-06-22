@@ -284,6 +284,13 @@ export const createSignedOrder: ThunkCreator = (amount: BigNumber, price: BigNum
         const state = getState();
         const ethAccount = selectors.getEthAccount(state);
         const baseToken = selectors.getBaseToken(state) as Token;
+
+        let isTokenizer = false;
+
+        if (baseToken.name === 'Tokenizer' || baseToken.name === 'XRWeb') {
+            isTokenizer = true;
+        }
+
         const quoteToken = selectors.getQuoteToken(state) as Token;
         try {
             const web3Wrapper = await getWeb3Wrapper();
@@ -299,7 +306,7 @@ export const createSignedOrder: ThunkCreator = (amount: BigNumber, price: BigNum
                     exchangeAddress: contractWrappers.exchange.address,
                 },
                 side,
-                false,
+                isTokenizer,
             );
 
             const provider = new MetamaskSubprovider(web3Wrapper.getProvider());
