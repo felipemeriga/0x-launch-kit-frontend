@@ -7,7 +7,7 @@ import { sleep } from '../util/sleep';
 let web3Wrapper: Web3Wrapper | null = null;
 
 export const isMetamaskInstalled = (): boolean => {
-    return false;
+    return true;
 };
 
 export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
@@ -15,17 +15,47 @@ export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
         return web3Wrapper;
     }
 
-    const torus = new Torus({
-        buttonPosition: "bottom-right"
-    });
-    await torus.init({ 
-        network: {
-            host: "mainnet",
-        }
-    });
-    await torus.login({}); 
+    const reload = () => {
+        console.log('happened')
+        // window.location.reload();
+    }
+
+    if (localStorage.getItem("tokenizer-web3wrapper") === "true") {
+        const torus = new Torus({});
+
+        await torus.init({});
+        const web3 = new Web3(torus.provider as any);
+        web3Wrapper = new Web3Wrapper(web3.currentProvider as any);
+
+        (torus.provider as any).on('chainChanged', reload);
+        (torus.provider as any).on('accountsChanged', reload);
+
+        (torus.provider as any).on('disconnect', () => {
+            localStorage.removeItem("tokenizer-web3wrapper");
+            (torus.provider as any).removeListener('accountsChanged', reload);
+            (torus.provider as any).removeListener('chainChanged', reload);
+            reload();
+        });
+
+        return web3Wrapper;
+    }
+
+    const torus = new Torus({});
+    await torus.init({});
+    await torus.login({});
     const web3 = new Web3(torus.provider as any);
     web3Wrapper = new Web3Wrapper(web3.currentProvider as any);
+    localStorage.setItem("tokenizer-web3wrapper", "true");
+
+    (torus.provider as any).on('chainChanged', reload);
+    (torus.provider as any).on('accountsChanged', reload);
+    (torus.provider as any).on('disconnect', () => {
+        localStorage.removeItem("tokenizer-web3wrapper");
+        (torus.provider as any).removeListener('accountsChanged', reload);
+        (torus.provider as any).removeListener('chainChanged', reload);
+        reload();
+    });
+
     return web3Wrapper;
 };
 
