@@ -1,48 +1,32 @@
 import { Web3Wrapper } from '@0x/web3-wrapper';
+import Torus from "@toruslabs/torus-embed";
+import Web3 from "web3";
 
 import { sleep } from '../util/sleep';
 
 let web3Wrapper: Web3Wrapper | null = null;
 
 export const isMetamaskInstalled = (): boolean => {
-    const { ethereum, web3 } = window;
-    return ethereum || web3;
+    return false;
 };
 
 export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
-    const { ethereum, web3, location } = window;
-
     if (web3Wrapper) {
         return web3Wrapper;
     }
 
-    if (ethereum) {
-        try {
-            web3Wrapper = new Web3Wrapper(ethereum);
-            // Request account access if needed
-            await ethereum.enable();
-
-            // Subscriptions register
-            ethereum.on('accountsChanged', async (accounts: []) => {
-                // Reload to avoid MetaMask bug: "MetaMask - RPC Error: Internal JSON-RPC"
-                location.reload();
-            });
-            ethereum.on('networkChanged', async (network: number) => {
-                location.reload();
-            });
-
-            return web3Wrapper;
-        } catch (error) {
-            // The user denied account access
-            return null;
+    const torus = new Torus({
+        buttonPosition: "bottom-right"
+    });
+    await torus.init({ 
+        network: {
+            host: "mainnet",
         }
-    } else if (web3) {
-        web3Wrapper = new Web3Wrapper(web3.currentProvider);
-        return web3Wrapper;
-    } else {
-        //  The user does not have metamask installed
-        return null;
-    }
+    });
+    await torus.login({}); 
+    const web3 = new Web3(torus.provider as any);
+    web3Wrapper = new Web3Wrapper(web3.currentProvider as any);
+    return web3Wrapper;
 };
 
 export const getWeb3Wrapper = async (): Promise<Web3Wrapper> => {
