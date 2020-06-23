@@ -169,7 +169,7 @@ const simplifiedTextBoxSmall = () => {
 };
 
 const getWalletName = () => {
-    return 'MetaMask';
+    return 'Torus';
 };
 
 const getWallet = (web3State: Web3State) => {
