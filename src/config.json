@@ -20,13 +20,13 @@
             "displayDecimals": 2
         },
         {
-            "symbol": "toz",
+            "symbol": "tkz",
             "name": "Tokenizer",
             "primaryColor": "#333333",
             "icon": "assets/icons/toz.svg",
             "addresses": {
-                "1": "0x74383273cb0bc65f8f8738a2847d2e81b28d4e00",
-                "3": "0x74383273cb0bc65f8f8738a2847d2e81b28d4e00"
+                "1": "0x67fea511a32fe7dfabae7c1c042c541086d54bc7",
+                "3": "0x3520302E4930E825f663ED99a16d012CC636B57C"
             },
             "decimals": 18,
             "displayDecimals": 2
