@@ -131,11 +131,11 @@
     ],
     "pairs": [
         {
-            "base": "toz",
+            "base": "tkz",
             "quote": "dai"
         },
         {
-            "base": "toz",
+            "base": "tkz",
             "quote": "weth"
         },
         {
@@ -148,7 +148,7 @@
         },
         {
             "base": "xr",
-            "quote": "toz"
+            "quote": "tkz"
         },
         {
             "base": "xr",
