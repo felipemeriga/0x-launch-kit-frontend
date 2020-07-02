@@ -340,6 +340,8 @@ const initWalletBeginCommon: ThunkCreator<Promise<any>> = () => {
             dispatch(updateMarketPriceEther());
 
             const networkId = await web3Wrapper.getNetworkIdAsync();
+            // tslint:disable-next-line:no-console
+            console.log(networkId);
             if (networkId !== NETWORK_ID) {
                 dispatch(setWeb3State(Web3State.Error));
             }
