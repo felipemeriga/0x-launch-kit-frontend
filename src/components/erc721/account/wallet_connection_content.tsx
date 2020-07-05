@@ -14,13 +14,20 @@ import { WalletConnectionStatusContainer } from '../../account/wallet_connection
 import { WalletConnectionStatusDot } from '../../account/wallet_connections_status_dot';
 import { CardBase } from '../../common/card_base';
 import { DropdownTextItem } from '../../common/dropdown_text_item';
+import { getWeb3Modal, getWeb3 } from '../../../services/web3_wrapper';
 
 const truncateAddress = (address: string) => {
     return `${address.slice(0, 7)}...${address.slice(address.length - 5)}`;
 };
 
-const connectToWallet = () => {
-    alert('connect to another wallet');
+const connectToWallet = async () => {
+    const web3 = await getWeb3();
+    if (web3 && web3.currentProvider && web3.currentProvider.close) {
+        await web3.currentProvider.close();
+    }
+    const web3Modal = await getWeb3Modal();
+    await web3Modal.clearCachedProvider();
+    window.location.reload();
 };
 
 const WalletConnectionWrapper = styled(CardBase)`

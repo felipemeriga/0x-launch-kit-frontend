@@ -157,7 +157,7 @@ const TokenContainer = styled.div`
     right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 12;
+    z-index: 2;
 `;
 
 const TokenText = styled.span`

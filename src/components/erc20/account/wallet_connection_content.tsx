@@ -9,6 +9,7 @@ import { StoreState } from '../../../util/types';
 import { WalletConnectionStatusContainer } from '../../account/wallet_connection_status';
 import { CardBase } from '../../common/card_base';
 import { DropdownTextItem } from '../../common/dropdown_text_item';
+import { getWeb3Modal, getWeb3 } from '../../../services/web3_wrapper';
 
 interface OwnProps extends HTMLAttributes<HTMLSpanElement> {}
 
@@ -18,9 +19,15 @@ interface StateProps {
 
 type Props = StateProps & OwnProps;
 
-// const connectToWallet = () => {
-//     alert('connect to another wallet');
-// };
+const connectToWallet = async () => {
+    const web3 = await getWeb3();
+    if (web3 && web3.currentProvider && web3.currentProvider.close) {
+        await web3.currentProvider.close();
+    }
+    const web3Modal = await getWeb3Modal();
+    await web3Modal.clearCachedProvider();
+    window.location.reload();
+};
 
 // const goToURL = () => {
 //     alert('go to url');
@@ -41,8 +48,7 @@ class WalletConnectionContent extends React.PureComponent<Props> {
                 <CopyToClipboard text={ethAccount ? ethAccount : ''}>
                     <DropdownTextItem text="Copy Address to Clipboard" />
                 </CopyToClipboard>
-                {/*<DropdownTextItem onClick={connectToWallet} text="Connect a different Wallet" />*/}
-                {/*<DropdownTextItem onClick={goToURL} text="Manage Account" />*/}
+                <DropdownTextItem onClick={connectToWallet} text="Connect a different Wallet" />
             </DropdownItems>
         );
 

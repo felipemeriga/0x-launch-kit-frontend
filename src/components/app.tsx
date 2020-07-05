@@ -34,7 +34,7 @@ class App extends React.Component<Props> {
     public componentDidMount = () => {
         // const wasWalletConnected = localStorage.getWalletConnected();
         // if (wasWalletConnected) {
-            this.props.onConnectWallet();
+        this.props.onConnectWallet();
         // } else {
         //     this.props.onInitMetamaskState();
         // }
