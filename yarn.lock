@@ -1524,9 +1524,9 @@
     bn.js "^4.4.0"
 
 "@ethersproject/bignumber@>=5.0.0-beta.130", "@ethersproject/bignumber@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@ethersproject/bignumber/-/bignumber-5.0.1.tgz#85edb1026310633ef566cc379e3e0026697f6e6e"
-  integrity sha512-srGDO7ksT0avdDw5pBtj6F81psv5xiJMInwSSatfIKplitubFb6yVwoHGObGRd0Pp3TvrkIDfJkuskoSMj4OHQ==
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@ethersproject/bignumber/-/bignumber-5.0.3.tgz#9dc556ee641c26acf9f42143b29ee89488b00488"
+  integrity sha512-UV86heIXh+IEYEXzx4UUjZxtfAvPOuKrfkIYWzlOd8WeFgsTwN+YNAEEgERNu3J45aLduEMkyTm7nQJhgG4j3A==
   dependencies:
     "@ethersproject/bytes" "^5.0.0"
     "@ethersproject/logger" "^5.0.0"
@@ -1586,14 +1586,14 @@
     "@ethersproject/logger" "^5.0.0"
 
 "@ethersproject/signing-key@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@ethersproject/signing-key/-/signing-key-5.0.1.tgz#90957e42c69e857dc741c8fbeeff0f36bcee9cf7"
-  integrity sha512-Z3yMPFFf4KkWltndDNi/tpese7qZh6ZWKbGu3DHd8xOX0PJqbScdAs6gCfFeMatO06qyX307Y52soc/Ayf8ZSg==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@ethersproject/signing-key/-/signing-key-5.0.2.tgz#ca3cff00d92220fcf7d124e03a139182d627cff3"
+  integrity sha512-kgpCdtgoLoKXJTwJPw3ggRW7EO93YCQ98zY8hBpIb4OK3FxFCR3UUjlrGEwjMnLHDjFrxpKCeJagGWf477RyMQ==
   dependencies:
     "@ethersproject/bytes" "^5.0.0"
     "@ethersproject/logger" "^5.0.0"
     "@ethersproject/properties" "^5.0.0"
-    elliptic "6.5.2"
+    elliptic "6.5.3"
 
 "@ethersproject/strings@>=5.0.0-beta.130", "@ethersproject/strings@^5.0.0":
   version "5.0.1"
@@ -2044,22 +2044,22 @@
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-"@toruslabs/fetch-node-details@^2.2.6":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@toruslabs/fetch-node-details/-/fetch-node-details-2.2.6.tgz#1f6f6fb5523125a30de2c168b947e7c9f402c8cb"
-  integrity sha512-1JRvqzInlU7E/nhA5TewqMjI7DpfyoWCAATBAYQznwINET1ZdEOTpKX7OdH7eOJksVhJKobtbPl+2W9u/lawUw==
+"@toruslabs/fetch-node-details@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@toruslabs/fetch-node-details/-/fetch-node-details-2.3.0.tgz#55ca927814812a029bb29816ace3d60d27fcd0b1"
+  integrity sha512-QWfYxBel+XUnUgkyPnjTLZpWiYJVl3Nz6I5MwSRJ/t3GteJvvGuq93zbsIzRmyhxK5C+e+FufnEUsKFwiXtPmA==
   dependencies:
     web3-eth-contract "^1.2.9"
     web3-utils "^1.2.9"
 
-"@toruslabs/torus-embed@^1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@toruslabs/torus-embed/-/torus-embed-1.5.4.tgz#d5d0662dee4e5d8bc3c01f59ebade6fda9829faa"
-  integrity sha512-CfUw4Pdz8hstpixnvNZWQMlXZY673zNfd71DyEKANgH+Dxxx8ncFYqM7/zxA/sQLYmkhnuD6kUQm/8lv843Yeg==
+"@toruslabs/torus-embed@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@toruslabs/torus-embed/-/torus-embed-1.6.0.tgz#1e92dafaacbea0ae3ebe99caf44766fa96ad3f6a"
+  integrity sha512-7EzVkh8oE5tVzn1r2hUfW9lB2WV6YCaHjwp4RPVM4EuB1iZjUcITVp9puE8cvFAnkjPWZow5YzOinw2PbXrjfw==
   dependencies:
     "@chaitanyapotti/random-id" "^1.0.3"
-    "@toruslabs/fetch-node-details" "^2.2.6"
-    "@toruslabs/torus.js" "^2.1.9"
+    "@toruslabs/fetch-node-details" "^2.3.0"
+    "@toruslabs/torus.js" "^2.2.1"
     create-hash "^1.2.0"
     deepmerge "^4.2.2"
     eth-json-rpc-errors "^2.0.2"
@@ -2074,10 +2074,10 @@
     safe-event-emitter "^1.0.1"
     web3 "^0.20.7"
 
-"@toruslabs/torus.js@^2.1.9":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@toruslabs/torus.js/-/torus.js-2.1.9.tgz#f19ba09c763cb4d5960b1ae1c97e036edb7a663f"
-  integrity sha512-onFqseyRwIwbpWCZ8MrdMcRsP0UNv0Qr12tGOOCKgnkgD0nCsnkKKd3o56POB2iUU+o60gfCbkEJt252H1Y1Ng==
+"@toruslabs/torus.js@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@toruslabs/torus.js/-/torus.js-2.2.1.tgz#4560b0dd96c70cb5a87b6a9b0478be8a80111751"
+  integrity sha512-WpGp5EtIx/bhQ5b6PbizW9oN1DCJBrUeKfbAy0kRQ9QeSWiAnDLhjH1NTgmABFB+LY7uevI6IGdiCTodeBqx+Q==
   dependencies:
     bn.js "^5.1.2"
     eccrypto "^1.1.3"
@@ -2244,9 +2244,9 @@
   integrity sha512-7+2BITlgjgDhH0vvwZU/HZJVyk+2XUlvxXe8dFMedNX/aMkaOq++rMAFXc0tM7ij15QaWlbdQASBR9dihi+bDQ==
 
 "@types/node@*":
-  version "14.0.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.13.tgz#ee1128e881b874c371374c1f72201893616417c9"
-  integrity sha512-rouEWBImiRaSJsVA+ITTFM6ZxibuAlTuNOCyxVbwreu6k6+ujs7DfnU9o+PShFhET78pMBl3eH+AGSI5eOTkPA==
+  version "14.0.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.14.tgz#24a0b5959f16ac141aeb0c5b3cd7a15b7c64cbce"
+  integrity sha512-syUgf67ZQpaJj01/tRTknkMNoBBLWJOBODF0Zm4NrXmiSuxjymFrxnTu1QVYRubhVkRcZLYZG8STTwJRdVm/WQ==
 
 "@types/node@10.12.19":
   version "10.12.19"
@@ -6365,7 +6365,7 @@ elliptic@6.5.2:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-elliptic@^6.0.0, elliptic@^6.4.0, elliptic@^6.4.1, elliptic@^6.5.2, elliptic@^6.5.3:
+elliptic@6.5.3, elliptic@^6.0.0, elliptic@^6.4.0, elliptic@^6.4.1, elliptic@^6.5.2, elliptic@^6.5.3:
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
   integrity sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==

@@ -10,7 +10,7 @@
         "@0x/subproviders": "^6.0.0",
         "@0x/utils": "^5.0.0",
         "@0x/web3-wrapper": "^7.0.0",
-        "@toruslabs/torus-embed": "^1.5.4",
+        "@toruslabs/torus-embed": "^1.6.0",
         "@unilogin/provider": "^0.6.1",
         "@walletconnect/web3-provider": "^1.0.11",
         "async-retry": "^1.2.3",
