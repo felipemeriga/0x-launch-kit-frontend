@@ -9,6 +9,8 @@ import { StoreState, Web3State } from '../../util/types';
 
 import { ErrorCard, ErrorIcons, FontSize } from './error_card';
 
+import { getWeb3Modal } from '../../services/web3_wrapper';
+
 interface OwnProps {
     centerContent?: React.ReactNode;
     endContent: React.ReactNode;
@@ -97,10 +99,19 @@ const Toolbar = (props: Props) => {
                     />
                 );
             case Web3State.Loading:
-                return <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmLoading} icon={ErrorIcons.Metamask} />;
+                return <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmLoading} icon={ErrorIcons.Warning} />;
             case Web3State.Error:
                 return (
-                    <ErrorCard fontSize={FontSize.Large} text={errorsWallet.mmWrongNetwork} icon={ErrorIcons.Warning} />
+                    <ErrorCard
+                        fontSize={FontSize.Large}
+                        text={'Reconnect'}
+                        icon={ErrorIcons.Warning}
+                        isButton={true}
+                        onClick={async () => {
+                            const web3modal = await getWeb3Modal();
+                            await web3modal.toggleModal();
+                        }}
+                    />
                 );
             case Web3State.Done:
                 return (

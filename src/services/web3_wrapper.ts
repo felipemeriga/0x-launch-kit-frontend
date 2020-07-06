@@ -2,8 +2,9 @@ import { Web3Wrapper } from '@0x/web3-wrapper';
 import Torus from '@toruslabs/torus-embed';
 import Authereum from 'authereum';
 import UniLogin from '@unilogin/provider';
+// import Fortmatic from 'fortmatic';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import Web3Modal from 'web3modal';
+import Web3Modal, { getInjectedProviderName } from 'web3modal';
 import Web3 from 'web3';
 
 import { sleep } from '../util/sleep';
@@ -35,10 +36,16 @@ export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
         unilogin: {
             package: UniLogin,
         },
+        // fortmatic: {
+        //     package: Fortmatic,
+        //     options: {
+        //       key: process.env.REACT_APP_FORTMATIC_KEY
+        //     }
+        // },
         walletconnect: {
             package: WalletConnectProvider, // required
             options: {
-                infuraId: '27e484dcd9e3efcfd25a83a78777cdf1', // required
+                infuraId: 'aa41866135a5416a87f324deb3e30da8', // required
             },
         },
     };
@@ -46,6 +53,29 @@ export const initializeWeb3Wrapper = async (): Promise<Web3Wrapper | null> => {
     web3Modal = new Web3Modal({
         providerOptions, // required
         theme: 'dark',
+    });
+
+    // Subscribe to accounts change
+    web3Modal.on('accountsChanged', (accounts: string[]) => {
+        console.log('accountsChanged', accounts);
+    });
+
+    // Subscribe to chainId change
+    web3Modal.on('chainChanged', (chainId: number) => {
+        console.log('chainChanged', chainId);
+    });
+
+    // Subscribe to provider connection
+    web3Modal.on('connect', (info: { chainId: number; isTorus: any; torus: any }) => {
+        console.log('connect', info);
+        if (info.isTorus) {
+            info.torus.showTorusButton();
+        }
+    });
+
+    // Subscribe to provider disconnection
+    web3Modal.on('disconnect', (error: { code: number; message: string }) => {
+        console.log('disconnect', error);
     });
 
     const provider = await web3Modal.connect();

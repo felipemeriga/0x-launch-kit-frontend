@@ -16,6 +16,7 @@ interface ErrorProps {
     fontSize?: FontSize;
     icon?: ErrorIcons;
     textAlign?: string;
+    isButton?: boolean;
 }
 
 export enum ErrorIcons {
@@ -41,6 +42,7 @@ const ErrorCardContainer = styled.div<ErrorProps>`
     line-height: 1.2;
     padding: 10px 15px;
     ${props => (props.textAlign === 'center' ? 'justify-content: center;' : '')}
+    cursor: ${props => (props.isButton ? 'pointer' : 'default')}
 `;
 
 const IconContainer = styled.span`

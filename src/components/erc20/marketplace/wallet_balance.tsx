@@ -93,7 +93,7 @@ const ErrorCardStyled = styled(ErrorCard)<ErrorCardStyledProps>`
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
-    z-index: 5;
+    z-index: 2;
 `;
 
 ErrorCardStyled.defaultProps = {
@@ -169,7 +169,7 @@ const simplifiedTextBoxSmall = () => {
 };
 
 const getWalletName = () => {
-    return 'Torus';
+    return 'My Wallet';
 };
 
 const getWallet = (web3State: Web3State) => {
