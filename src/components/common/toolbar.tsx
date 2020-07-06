@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { getWeb3State } from '../../store/selectors';
+import { initWallet } from '../../store/actions';
 import { themeBreakPoints, themeDimensions } from '../../themes/commons';
 import { errorsWallet } from '../../util/error_messages';
 import { StoreState, Web3State } from '../../util/types';
@@ -21,7 +22,11 @@ interface StateProps {
     web3State: Web3State;
 }
 
-type Props = OwnProps & StateProps;
+interface DispatchProps {
+    onConnectWallet: () => any;
+}
+
+type Props = OwnProps & DispatchProps & StateProps;
 
 export const separatorTopbar = css`
     &:after {
@@ -110,6 +115,7 @@ const Toolbar = (props: Props) => {
                         onClick={async () => {
                             const web3modal = await getWeb3Modal();
                             await web3modal.toggleModal();
+                            props.onConnectWallet();
                         }}
                     />
                 );
@@ -140,6 +146,12 @@ const mapStateToProps = (state: StoreState): StateProps => {
     };
 };
 
-const ToolbarContainer = connect(mapStateToProps)(Toolbar);
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        onConnectWallet: () => dispatch(initWallet()),
+    };
+};
+
+const ToolbarContainer = connect(mapStateToProps, mapDispatchToProps)(Toolbar);
 
 export { Toolbar, ToolbarContainer };
